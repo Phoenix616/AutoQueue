@@ -44,6 +44,7 @@ public class QueueListener implements Listener {
             event.setCancelled(true);
             if (plugin.addToQueue(queue, event.getPlayer(), event.getTarget())) {
                 int place = queue.getPlace(event.getPlayer());
+                plugin.getLogger().info("Added " + event.getPlayer().getName() + " to queue " + queue.getName() + "(" + place + "/" + queue.getAmount() + ")");
                 plugin.sendNotification(event.getPlayer(), "added-to-queue",
                         "queue", queue.getName(),
                         "place", String.valueOf(place),

@@ -94,8 +94,9 @@ public final class AutoQueue extends BungeePlugin {
         for (ServerInfo serverInfo : getProxy().getServers().values()) {
             serverInfo.ping((sp, e) -> {
                 if (e != null) {
-                    e.printStackTrace();
+                    getLogger().warning("Could not get max slot count of " + serverInfo.getName() + "! " + e.getMessage());
                 } else {
+                    getLogger().info("Max slot count of " + serverInfo.getName() + " is " + sp.getPlayers().getMax());
                     serverSlots.put(serverInfo.getName(), sp.getPlayers().getMax());
                 }
             });
@@ -236,6 +237,7 @@ public final class AutoQueue extends BungeePlugin {
                         playerQueues.remove(entry.getPlayerId());
                         ProxiedPlayer p = getProxy().getPlayer(entry.getPlayerId());
                         if (p != null) {
+                            getLogger().info("Connecting " + p.getName() + " to " + entry.getServer().getName() + " (" + queue.getName() + " - " + queue.getAmount() + " waiting)");
                             immunities.put(p.getUniqueId(), entry.getServer().getName());
                             player.connect(entry.getServer());
                         }
