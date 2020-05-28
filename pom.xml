@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>de.themoep</groupId>
+    <artifactId>autoqueue</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
+    <name>AutoQueue</name>
+
+    <description>Automatically queue players that try to join a server</description>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <build.number>${buildNumber}</build.number>
+        <minecraft.plugin.version>${project.version} ${buildDescription}</minecraft.plugin.version>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.source>1.8</maven.compiler.source>
+    </properties>
+
+    <repositories>
+        <repository>
+            <id>sonatype-oss-repo</id>
+            <url>https://oss.sonatype.org/content/groups/public/</url>
+        </repository>
+        <repository>
+            <id>minebench-repo</id>
+            <url>https://repo.minebench.de/</url>
+        </repository>
+    </repositories>
+
+    <dependencies>
+        <dependency>
+            <groupId>net.md-5</groupId>
+            <artifactId>bungeecord-api</artifactId>
+            <version>1.15-SNAPSHOT</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>de.themoep</groupId>
+            <artifactId>bungeeplugin</artifactId>
+            <version>1.2-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>de.themoep.utils</groupId>
+            <artifactId>lang-bungee</artifactId>
+            <version>1.1-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>de.themoep</groupId>
+            <artifactId>minedown</artifactId>
+            <version>1.6-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
+
+    <profiles>
+        <profile>
+            <id>static_build_number</id>
+            <activation>
+                <property>
+                    <name>!env.BUILD_NUMBER</name>
+                </property>
+            </activation>
+            <properties>
+                <buildNumber>0</buildNumber>
+                <buildDescription>(compiled at ${maven.build.timestamp})</buildDescription>
+            </properties>
+        </profile>
+        <profile>
+            <id>dynamic_build_number</id>
+            <activation>
+                <property>
+                    <name>env.BUILD_NUMBER</name>
+                </property>
+            </activation>
+            <properties>
+                <buildNumber>${env.BUILD_NUMBER}</buildNumber>
+                <buildDescription>(build ${env.BUILD_NUMBER})</buildDescription>
+            </properties>
+        </profile>
+    </profiles>
+
+    <build>
+        <defaultGoal>clean package</defaultGoal>
+        <finalName>${project.name}</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.1.0</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <minimizeJar>true</minimizeJar>
+                            <relocations>
+                                <relocation>
+                                    <pattern>de.themoep.bungeeplugin</pattern>
+                                    <shadedPattern>de.themoep.autoqueue.bungeeplugin</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>de.themoep.utils.lang</pattern>
+                                    <shadedPattern>de.themoep.autoqueue.lang</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>de.themoep.minedown</pattern>
+                                    <shadedPattern>de.themoep.autoqueue.minedown</shadedPattern>
+                                </relocation>
+                            </relocations>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+    </build>
+</project>

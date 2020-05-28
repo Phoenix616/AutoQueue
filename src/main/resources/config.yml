@@ -1,0 +1,35 @@
+default-locale: en
+# Automatically enter the player into a queue to join a server when joining
+# Usefull if you want to put a void server as a queue in front of your main one
+# Leave empty/invalid if you don't want that
+login-queue:
+  # Delay between joins
+  delay: 500
+  # The target server to send the player to
+  target:
+  - freebuild
+  # Optional: Only start this queue once there is this amount of players on the target server
+  target-amount: 10
+switch-queues:
+  examplequeue:
+    # Delay between joins in milliseconds
+    delay: 500
+    # Optional: Maximum amount of players that can be in this queue at the same time
+    max-size: 50
+    # Optional: Source server list
+    source:
+    - lobby
+    # Optional: Target server list
+    # Automatically triggers when player tries to switch from any source server to any target server
+    target:
+    - freebuild
+    # Optional: Only start this queue once there is this amount of players on the target server
+    target-min-amount: 10
+    # Optional: Only allow joining via the queue up to this many players on the target server
+    target-max-amount: 50
+    # Optional: The ServerConnectEvent.Reason for this server switch
+    connect-reason:
+    - COMMAND
+    - PLUGIN_MESSAGE
+    - PLUGIN
+    - UNKNOWN

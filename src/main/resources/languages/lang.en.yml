@@ -1,0 +1,26 @@
+prefix: "[AutoQueue]"
+error: "%prefix% &c%error"
+reloaded: "%prefix% &eConfig reloaded"
+# chat, title, subtitle and actionbar are optional
+added-to-queue:
+  chat: "%prefix% &aAdded to queue %queue%! (Place: %place%, wait time: %wait-time%s) Run [&e/queue leave](/queue leave) to leave it."
+  title: "Added to queue!"
+  subtitle: "You will automatically connect to the target server once it's your turn!"
+  actionbar: "&fUse &c/queue leave&f to leave the queue."
+
+loading-bar:
+  format: "&6%before%&c%player%&e%after%"
+  symbol: "▉"
+  
+queue-notification:
+  actionbar: "&f%place%. %loading-bar% &f%expected-wait%s"
+
+queue-full:
+  chat: "%prefix% &c%queue% is full!"
+  title: "%queue% &cis full!"
+  subtitle: "Please wait until there is room on the target server!"
+  actionbar: "%queue% &c is full!"
+  
+queue-left:  "%prefix% &eYou left the queue %queue%!"
+no-active-queue: "%prefix% &cYou aren't currently in a queue!"
+

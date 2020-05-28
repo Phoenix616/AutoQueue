@@ -1,0 +1,26 @@
+name: AutoQueue
+version: '${minecraft.plugin.version}'
+main: de.themoep.autoqueue.AutoQueue
+description: Automatically queue players that try to join a server
+author: Phoenix616
+commands:
+  autoqueue:
+    aliases: [aq,queue]
+    permission: autoqueue.command
+    description: Main plugin command
+    usage: /<command> leave|reload
+permissions:
+  autoqueue.command:
+    description: Permission to access the command
+  autoqueue.command.leave:
+    description: Permission to access the leave command
+  autoqueue.command.status:
+    description: Permission to access the status command
+  autoqueue.command.reload:
+    description: Permission to access the reload command
+  autoqueue.bypass:
+    description: Bypass queues
+  autoqueue.bypass.maxplayers:
+    description: Bypass max player restrictions
+  autoqueue.queue.<name>.bypass:
+    description: Bypass a specific queue

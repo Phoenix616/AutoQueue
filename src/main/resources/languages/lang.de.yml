@@ -1,0 +1,25 @@
+prefix: "[AutoQueue]"
+error: "%prefix% &c%error"
+reloaded: "%prefix% &eConfig neu geladen"
+# chat, title, subtitle und actionbar sind optionell
+added-to-queue:
+  chat: "%prefix% &aWarteschlange %queue% beigetreten! (Platz: %place%. Wartezeit: %expected-wait%s) Nutze [&e/queue leave](/queue leave) um sie zu verlassen!"
+  title: "Warteschlange beigetreten!"
+  subtitle: "Du wirst automatisch verbunden sobald du an der Reihe bist!"
+  actionbar: "&fNutze &c/queue leave&f um die Warteschlange zu verlassen."
+
+loading-bar:
+  format: "&6%before%&c%player%&e%after%"
+  symbol: "▉"
+
+queue-notification:
+  actionbar: "&f%place%. %loading-bar% &f%expected-wait%s"
+  
+queue-full:
+  chat: "%prefix% &c%queue% ist voll!"
+  title: "%queue% &c ist voll!"
+  subtitle: "Bitte warte ein wenig bis Platz auf dem Server ist!"
+  actionbar: "%queue% &c ist voll!"
+
+queue-left:  "%prefix% &eDu hast die Warteschlange %queue% verlassen!"
+no-active-queue: "%prefix% &cDu bist zur Zeit in keiner Warteschlange!"
