@@ -5,10 +5,10 @@ description: Automatically queue players that try to join a server
 author: Phoenix616
 commands:
   autoqueue:
-    aliases: [aq,queue]
+    aliases: [q,aq,queue]
     permission: autoqueue.command
     description: Main plugin command
-    usage: /<command> leave|reload
+    usage: /<command> leave|status|reload
 permissions:
   autoqueue.command:
     description: Permission to access the command
