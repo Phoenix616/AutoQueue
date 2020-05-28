@@ -90,17 +90,6 @@ public final class AutoQueue extends BungeePlugin {
         loadConfig();
         getProxy().getPluginManager().registerListener(this, new QueueListener(this));
         getProxy().getPluginManager().registerCommand(this, new QueueCommand(this));
-
-        for (ServerInfo serverInfo : getProxy().getServers().values()) {
-            serverInfo.ping((sp, e) -> {
-                if (e != null) {
-                    getLogger().warning("Could not get max slot count of " + serverInfo.getName() + "! " + e.getMessage());
-                } else {
-                    getLogger().info("Max slot count of " + serverInfo.getName() + " is " + sp.getPlayers().getMax());
-                    serverSlots.put(serverInfo.getName(), sp.getPlayers().getMax());
-                }
-            });
-        }
     }
 
     void loadConfig() {
@@ -123,6 +112,18 @@ public final class AutoQueue extends BungeePlugin {
             if (queue != null) {
                 queues.add(queue);
             }
+        }
+
+        serverSlots.clear();
+        for (ServerInfo serverInfo : getProxy().getServers().values()) {
+            serverInfo.ping((sp, e) -> {
+                if (e != null) {
+                    getLogger().warning("Could not get max slot count of " + serverInfo.getName() + "! " + e.getMessage());
+                } else {
+                    getLogger().info("Max slot count of " + serverInfo.getName() + " is " + sp.getPlayers().getMax());
+                    serverSlots.put(serverInfo.getName(), sp.getPlayers().getMax());
+                }
+            });
         }
     }
 
