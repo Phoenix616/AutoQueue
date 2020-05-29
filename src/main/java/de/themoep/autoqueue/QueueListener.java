@@ -38,7 +38,8 @@ public class QueueListener implements Listener {
         Queue queue = plugin.getQueue(event.getPlayer().getServer() != null ? event.getPlayer().getServer().getInfo() : null, event.getTarget(), event.getReason());
 
         if (queue != null && !event.getPlayer().hasPermission("autoqueue.bypass") && !event.getPlayer().hasPermission("autoqueue.queue." + queue.getName().toLowerCase() + ".bypass")) {
-            if (plugin.isImmune(event.getPlayer(), event.getTarget()) || !queue.isActive()) {
+            if ((event.getReason() == ServerConnectEvent.Reason.PLUGIN && plugin.isImmune(event.getPlayer(), event.getTarget()))
+                    || !queue.isActive()) {
                 return;
             }
             event.setCancelled(true);

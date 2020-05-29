@@ -240,7 +240,7 @@ public final class AutoQueue extends BungeePlugin {
                         if (p != null) {
                             getLogger().info("Connecting " + p.getName() + " to " + entry.getServer().getName() + " (" + queue.getName() + " - " + queue.getAmount() + " waiting)");
                             immunities.put(p.getUniqueId(), entry.getServer().getName());
-                            player.connect(entry.getServer());
+                            player.connect(entry.getServer(), (b, e) -> immunities.invalidate(p.getUniqueId()), ServerConnectEvent.Reason.PLUGIN);
                         }
                     }
                 }, queue.getDelay(), queue.getDelay(), TimeUnit.MILLISECONDS));
