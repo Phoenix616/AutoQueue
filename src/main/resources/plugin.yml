@@ -3,6 +3,7 @@ version: '${minecraft.plugin.version}'
 main: de.themoep.autoqueue.AutoQueue
 description: Automatically queue players that try to join a server
 author: Phoenix616
+softDepends: [ServerStatus]
 commands:
   autoqueue:
     aliases: [q,aq,queue]

@@ -146,10 +146,11 @@ public class Queue {
         if (!reasons.isEmpty() && !reasons.contains(reason)) {
             return false;
         }
-        if (targetMinAmount > -1 && target.getPlayers().size() < targetMinAmount) {
-            return false;
-        }
         return true;
+    }
+
+    public boolean matchesTargetAmount(ServerInfo target) {
+        return targetMinAmount <= -1 || target.getPlayers().size() >= targetMinAmount;
     }
 
     public int getAmount() {

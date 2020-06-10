@@ -45,6 +45,7 @@ public final class AutoQueue extends BungeePlugin {
 
     private LanguageManager lang;
     private Queue loginQueue;
+    private ServerStatusAdapter serverStatusAdapter = null;
 
     private ScheduledTask notificationTask;
 
@@ -87,6 +88,9 @@ public final class AutoQueue extends BungeePlugin {
 
     @Override
     public void onEnable() {
+        if (getProxy().getPluginManager().getPlugin("ServerStatus") != null) {
+            serverStatusAdapter = new ServerStatusAdapter(this);
+        }
         loadConfig();
         getProxy().getPluginManager().registerListener(this, new QueueListener(this));
         getProxy().getPluginManager().registerCommand(this, new QueueCommand(this));
@@ -215,7 +219,7 @@ public final class AutoQueue extends BungeePlugin {
             return loginQueue;
         }
         for (Queue queue : queues) {
-            if (queue.accepts(source, target, reason)) {
+            if (queue.accepts(source, target, reason) && (queue.matchesTargetAmount(target) || !isOnline(target))) {
                 return queue;
             }
         }
@@ -254,6 +258,9 @@ public final class AutoQueue extends BungeePlugin {
     }
 
     private boolean isRoomOnServer(Queue queue, Queue.Entry entry, ProxiedPlayer player) {
+        if (!isOnline(entry.getServer())) {
+            return false;
+        }
         if (queue.getTargetMaxAmount() > 0
                 && entry.getServer().getPlayers().size() >= queue.getTargetMaxAmount()
                 && !player.hasPermission("autoqueue.bypass.maxplayers")) {
@@ -264,6 +271,10 @@ public final class AutoQueue extends BungeePlugin {
             return false;
         }
         return true;
+    }
+
+    boolean isOnline(ServerInfo server) {
+        return serverStatusAdapter == null || !serverStatusAdapter.isOnline(server);
     }
 
     public Queue removeFromQueue(ProxiedPlayer player) {
