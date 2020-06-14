@@ -39,6 +39,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 
 public final class AutoQueue extends BungeePlugin {
@@ -51,7 +52,7 @@ public final class AutoQueue extends BungeePlugin {
 
     private final List<Queue> queues = new ArrayList<>();
     private final Cache<UUID, String> immunities = CacheBuilder.newBuilder().expireAfterWrite(2, TimeUnit.SECONDS).build();
-    private final Map<UUID, Queue> playerQueues = new HashMap<>();
+    private final Map<UUID, Queue> playerQueues = new ConcurrentHashMap<>();
     private final Map<String, Integer> serverSlots = new HashMap<>();
 
     private final Runnable notificationRunnable = () -> {

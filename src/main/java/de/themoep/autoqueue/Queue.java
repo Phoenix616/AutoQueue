@@ -23,12 +23,12 @@ import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.event.ServerConnectEvent;
 import net.md_5.bungee.api.scheduler.ScheduledTask;
 
-import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentLinkedDeque;
 import java.util.stream.Collectors;
 
 public class Queue {
@@ -41,8 +41,8 @@ public class Queue {
     private final int targetMaxAmount;
     private final Set<ServerConnectEvent.Reason> reasons;
 
-    private final Deque<Entry> priorityQueue = new ArrayDeque<>();
-    private final Deque<Entry> queue = new ArrayDeque<>();
+    private final Deque<Entry> priorityQueue = new ConcurrentLinkedDeque<>();
+    private final Deque<Entry> queue = new ConcurrentLinkedDeque<>();
 
     private ScheduledTask task;
     private long lastCheck = 0;
