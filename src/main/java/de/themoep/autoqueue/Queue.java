@@ -183,9 +183,9 @@ public class Queue {
     }
 
     Entry fetchEntry() {
-        Entry entry = priorityQueue.getFirst();
+        Entry entry = priorityQueue.peekFirst();
         if (entry == null) {
-            entry = queue.getFirst();
+            entry = queue.peekFirst();
         }
         return entry;
     }
