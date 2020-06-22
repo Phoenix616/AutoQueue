@@ -75,7 +75,7 @@ public final class AutoQueue extends BungeePlugin {
                     );
 
                     long expectedJoinIn = TimeUnit.MILLISECONDS.toSeconds(place * queue.getDelay());
-                    sendNotification(player, "in-queue", false,
+                    sendNotification(player, "queue-notification", false,
                             "place", String.valueOf(place),
                             "amount", String.valueOf(amount),
                             "expected-wait", String.valueOf(expectedJoinIn),
