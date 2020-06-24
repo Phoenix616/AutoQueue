@@ -102,6 +102,9 @@ public class Queue {
         if (maxSize > -1 && getAmount() >= maxSize) {
             return false;
         }
+        if (contains(player)) {
+            return true;
+        }
         Entry entry = new Entry(player, target);
         if (player.hasPermission("autoqueue.priority") || player.hasPermission("autoqueue.queue." + getName().toLowerCase() + ".priority")) {
             priorityQueue.addLast(entry);
