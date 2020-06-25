@@ -168,7 +168,7 @@ public final class AutoQueue extends BungeePlugin {
     }
 
     public void sendNotification(ProxiedPlayer player, String key, boolean fade, String... replacements) {
-        if (lang.getConfig(player).contains(key)) {
+        if (lang.getConfig(player).getRawConfig().getString(key, null) != null) {
             player.sendMessage(getLang(player, key, replacements));
         } else {
             if (lang.getConfig(player).contains(key + ".chat")) {
